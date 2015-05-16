@@ -1,3 +1,112 @@
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'scrooloose/nerdtree'
+Plugin 'ervandew/supertab'
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+""
+"" Customisations
+""
+
+set number            " Show line numbers
+set ruler             " Show line and column number
+syntax enable         " Turn on syntax highlighting allowing local overrides
+set backspace=indent,eol,start    " backspace through everything in insert mode
+set encoding=utf-8    " Set default encoding to UTF-8
+let g:ctrlp_user_command = 'ag %s -iU -p "~/.agignore" --nocolor -g ""'
+" 一个 tab 的宽度是4个space
+ set tabstop=4
+" " 自动缩进使用的space数
+ set shiftwidth=4
+" " 编辑插入tab时，把tab算作的空格数
+ set softtabstop=4
+ set expandtab
+ map <leader>cd :cd %:p:h<CR>
+ " Easier moving in tabs and windows
+  noremap <C-j> <C-w>j
+ "inoremap <C-j> <Esc><C-w>j
+  noremap <C-k> <C-w>k
+ "inoremap <C-k> <Esc><C-w>k
+  noremap <C-l> <C-w>l
+ " inoremap <C-l> <Esc><C-w>l
+  noremap <C-h> <C-w>h
+ "inoremap <C-h> <Esc><C-w>h
+  noremap <C-e> <C-w>w
+  noremap <S-H> gT
+  noremap <S-L> gt
+
+set hlsearch    " highlight matches
+set incsearch   " incremental searching
+set ignorecase  " searches are case insensitive...
+set smartcase   " ... unless they contain at least one capital letter
+""
+"" Wild settings
+""
+
+" TODO: Investigate the precise meaning of these settings
+" set wildmode=list:longest,list:full
+
+" Disable output and VCS files
+set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem
+
+" Disable archive files
+set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
+
+" Ignore bundler and sass cache
+set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
+
+" Ignore librarian-chef, vagrant, test-kitchen and Berkshelf cache
+set wildignore+=*/tmp/librarian/*,*/.vagrant/*,*/.kitchen/*,*/vendor/cookbooks/*
+
+" Ignore rails temporary asset caches
+set wildignore+=*/tmp/cache/assets/*/sprockets/*,*/tmp/cache/assets/*/sass/*
+
+" Disable temp and backup files
+set wildignore+=*.swp,*~,._*
+" upper/lower word
+nmap <leader>u mQviwU`Q
+nmap <leader>l mQviwu`Q
+
+" upper/lower first char of word
+nmap <leader>U mQgewvU`Q
+nmap <leader>L mQgewvu`Q
+" Treat long lines as break lines (useful when moving around in them)
+map j gj
+map k gk
+map <Down> gj
+map <Up> gk
+
+command Wq wq
+command Q q
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+
+python from powerline.vim import setup as powerline_setup
+python powerline_setup()
+python del powerline_setup
+noremap <F10> : set nu!<CR>
+nnoremap <leader>. :CtrlPTag<cr>
+set tags+=/home/sankuai/php-5.4.40/tags
+if has("statusline") && !&cp
+  set laststatus=2  " always show the status bar
+
+  " Start the status line
+  set statusline=%f\ %m\ %r
+  set statusline+=Line:%l/%L[%p%%]
+  set statusline+=Col:%v
+  set statusline+=Buf:#%n
+  set statusline+=[%b][0x%B]
+endif
 syntax on
 
 " Wrap gitcommit file types at the appropriate length
