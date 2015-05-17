@@ -1,0 +1,4 @@
+Host relay
+HostName relay.sankuai.com
+ControlPath ~/.ssh/master-%r@%h:%p
+ControlMaster auto
